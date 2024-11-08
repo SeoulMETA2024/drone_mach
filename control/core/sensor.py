@@ -63,23 +63,23 @@ class Sensor:
 
         return gyro_x_dps, gyro_y_dps, gyro_z_dps, accel_x_g, accel_y_g, accel_z_g
 
-# 칼만 필터 및 센서 사용 예제
-if __name__ == "__main__":
-    sensor = Sensor()
-    kalman_filter_gyro_x = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
-    kalman_filter_gyro_y = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
-    kalman_filter_gyro_z = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
+# # 칼만 필터 및 센서 사용 예제
+# if __name__ == "__main__":
+#     sensor = Sensor()
+#     kalman_filter_gyro_x = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
+#     kalman_filter_gyro_y = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
+#     kalman_filter_gyro_z = KalmanFilter(process_variance=1, measurement_variance=4, estimated_error=2, initial_value=0)
 
-    while True:
-        # 센서로부터 자이로스코프와 가속도계 측정값 읽기
-        gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z = sensor.measure()
+#     while True:
+#         # 센서로부터 자이로스코프와 가속도계 측정값 읽기
+#         gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z = sensor.measure()
         
-        # 자이로스코프 값에 칼만 필터 적용
-        filtered_gyro_x = kalman_filter_gyro_x.update_estimate(gyro_x)
-        filtered_gyro_y = kalman_filter_gyro_y.update_estimate(gyro_y)
-        filtered_gyro_z = kalman_filter_gyro_z.update_estimate(gyro_z)
+#         # 자이로스코프 값에 칼만 필터 적용
+#         filtered_gyro_x = kalman_filter_gyro_x.update_estimate(gyro_x)
+#         filtered_gyro_y = kalman_filter_gyro_y.update_estimate(gyro_y)
+#         filtered_gyro_z = kalman_filter_gyro_z.update_estimate(gyro_z)
 
-        print(f"Filtered Gyro X: {filtered_gyro_x:.2f} dps, Filtered Gyro Y: {filtered_gyro_y:.2f} dps, Filtered Gyro Z: {filtered_gyro_z:.2f} dps")
-        print(f"Accel X: {accel_x:.2f} g, Accel Y: {accel_y:.2f} g, Accel Z: {accel_z:.2f} g")
+#         print(f"Filtered Gyro X: {filtered_gyro_x:.2f} dps, Filtered Gyro Y: {filtered_gyro_y:.2f} dps, Filtered Gyro Z: {filtered_gyro_z:.2f} dps")
+#         print(f"Accel X: {accel_x:.2f} g, Accel Y: {accel_y:.2f} g, Accel Z: {accel_z:.2f} g")
         
-        time.sleep(0.1)
+#         time.sleep(0.1)

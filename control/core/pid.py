@@ -22,4 +22,19 @@ class PID:
 
         return value
 
+    def update_duty(self, pid_x, pid_y, pid_z):
+            motor_1_duty = 50 + pid_x + pid_y - pid_z
+            motor_2_duty = 50 - pid_x + pid_y + pid_z
+            motor_3_duty = 50 - pid_x - pid_y - pid_z
+            motor_4_duty = 50 + pid_x - pid_y + pid_z
+
+       
+            motor_1_duty = max(0, min(100, motor_1_duty))
+            motor_2_duty = max(0, min(100, motor_2_duty))
+            motor_3_duty = max(0, min(100, motor_3_duty))
+            motor_4_duty = max(0, min(100, motor_4_duty))
+
+            return motor_1_duty, motor_2_duty, motor_2_duty, motor_4_duty
+    
+    
 

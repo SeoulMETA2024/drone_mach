@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="joystick"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
+    <script>
+        const joystick = nipplejs.create({
+            zone: document.getElementById('joystick'),
+            mode: 'static',
+            position: { left: '50%', top: '50%' },
+            size: 150
+        });
+
+        joystick.on('move', (evt, data) => {
+            if (data.direction) {
+                const direction = data.direction.angle; // "up", "down", "left", "right"
+                const speed = data.distance; // 이동 거리 (속도와 비례)
+                sendCommand({ action: "move", direction, speed });
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

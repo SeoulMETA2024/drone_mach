@@ -1,10 +1,9 @@
 import asyncio
 import websocket
-from _ import cmcHandler
+import cmcHandler
+
 
 async def run(websocket):
-
-    device = cmdHandler()
 
     while True:
         try:

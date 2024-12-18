@@ -27,12 +27,12 @@ class PID:
     
 
 class PIDValueing(PID):
-    '''Apply PID in Drone'''
+    '''Apply PID to Drone'''
 
-    def __init__(self,aP,aI,aD,hP,hI,hD,heightWeight):
+    def __init__(self,aP,aI,aD,heightWeight):
          self.anglePID = PID(aP,aI,aD)
 
-         self.heightPID = PID(hP,hI,hD)
+         #self.heightPID = PID(hP,hI,hD)
 
          self.weight = heightWeight
 

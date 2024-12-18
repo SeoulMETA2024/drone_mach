@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drone Controller</title>
+  <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+    .controller {
+      display: flex;
+      width: 90%;
+      max-width: 600px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #slider-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input[type="range"] {
+      writing-mode: bt-lr; /* 슬라이더를 세로로 회전 */
+      -webkit-appearance: slider-vertical; /* 크롬, 사파리 */
+      width: 8px;
+      height: 150px;
+      margin: 20px 0;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controller">
+    <!-- 조이스틱 -->
+    <div id="joystick-container"></div>
+
+    <!-- 슬라이더 -->
+    <div id="slider-container">
+      <input id="slider" type="range" min="0" max="100" value="50">
+      <label for="slider">Altitude</label>
+    </div>
+  </div>
+
+ 
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // 조이스틱 설정
+    const joystickContainer = document.getElementById('joystick-container');
+    const joystick = nipplejs.create({
+      zone: joystickContainer,
+      mode: 'static',
+      position: { left: '50%', top: '50%' },
+      color: 'blue',
+    });
+
+    // 슬라이더 설정
+    const slider = document.getElementById('slider');
+    const output = document.getElementById('output');
+
+    // 조이스틱 데이터 처리
+    let joystickData = { x: 0, y: 0};
+    joystick.on('move', (evt, data) => {
+      joystickData.x = data.vector.x.toFixed(2); // 좌우
+      joystickData.y = data.vector.y.toFixed(2); // 전후
+
+
+      update()
+
+      
+
+    });
+
+    joystick.on('end', () => {
+      joystickData = { x: 0, y: 0 };
+
+    });
+
+    let sliderValue = 0
+    slider.addEventListener('input', () => {
+
+        sliderValue = (slider.value-50)/50;
+
+        update()
+
+    });
+
+
+    function update(){
+        x = Math.floor(joystickData.x*255)
+        y = Math.floor(joystickData.y*255)
+        z = Math.floor(sliderValue*255)
+
+        console.log(x,y,z)
+
+        msgPacker(msg => {
+          sendmsg(msg)
+        },x,y,z)
+        
+    }
+
+    
+
+
+   
+  </script>
+</body>
+</html>

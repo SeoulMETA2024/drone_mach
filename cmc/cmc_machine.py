@@ -17,6 +17,7 @@ async def run(websocket):
     return
 
 async def main():
+    
     while True:
         async with websocket.serve(run, 'localhost',3000) as ws:
             await asyncio.Future()

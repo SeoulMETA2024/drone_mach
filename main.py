@@ -8,6 +8,8 @@ if __name__ == "main":
     is_Running = False
 
     Server = RemoteControl()
+    
+    Server.main()
 
     while is_Running:
         command = input("Type 'run' to start. ")

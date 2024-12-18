@@ -23,23 +23,11 @@ class PID:
 
         return value
 
-    '''Update Pid Value based on Computed pid value'''
-    def update_duty(self, pid_x, pid_y, pid_z, thrust):
-            motor_1_duty = 50 + pid_x + pid_y - pid_z
-            motor_2_duty = 50 - pid_x + pid_y + pid_z
-            motor_3_duty = 50 - pid_x - pid_y - pid_z
-            motor_4_duty = 50 + pid_x - pid_y + pid_z
-
-       
-            motor_1_duty = max(0, min(100, motor_1_duty))
-            motor_2_duty = max(0, min(100, motor_2_duty))
-            motor_3_duty = max(0, min(100, motor_3_duty))
-            motor_4_duty = max(0, min(100, motor_4_duty))
-
-            return motor_1_duty, motor_2_duty, motor_2_duty, motor_4_duty
     
 
-class PIDValueing:
+class PIDValueing(PID):
+    '''Apply PID in Drone'''
+
     def __init__(self,aP,aI,aD,hP,hI,hD,heightWeight):
          self.anglePID = PID(aP,aI,aD)
 
@@ -49,7 +37,9 @@ class PIDValueing:
 
          pass
     
-    def update_duty(self, target_x, target_y, target_z, thrust,current_x,current_y,current_z):
+    
+    def update_duty(self, target_x:float, target_y:float, target_z:float, thrust,current_x:float,current_y:float,current_z:float) -> float: 
+            '''Update Duty Cycle based on Computed PID Value'''
             pid_x = self.anglePID(target_x,current_x)
             pid_y = self.anglePID(target_y,current_y)
             pid_z = self.anglePID(target_z,current_z)

@@ -8,10 +8,17 @@ if __name__ == "main":
     is_Running = False
 
     while is_Running:
+
+        x =
+        y = 
+        z = 
+        thrust =
+
+        
         
         
 
-        Drone.alleviate(ang_1,ang_2, ang_3, ang_4)
+        Drone.alleviate(x,y,z,thrust)
 
         
         

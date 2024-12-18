@@ -1,13 +1,15 @@
 from motor import Motor
-from pid import PID
+from pid import PID, PIDValueing
 from sensor import Sensor, KalmanFilter
 
 
 #조립 후 기재하기
 BUS_NUM = 
 SERIAL_NUM = 
-class Hover(PID,KarmanFilter):
+class Hover(KalmanFilter):
     def __init__(self,motor_1,motor_2,motor_3,motor_4,Kp,Ki,Kd) -> None:
+        self.PIDValueing = PIDValueing()
+
         self.sensor = Sensor(BUS_NUM, SERIAL_NUM)
 
         self.motor_1 = Motor(motor_1)
@@ -63,14 +65,10 @@ class Hover(PID,KarmanFilter):
         gyro_x = self.KalmanFilter_x.update_estimate(data[0])
         gyro_y = self.KalmanFilter_y.update_estimate(data[1])
         gyro_z = self.KalmanFilter_z.update_estimate(data[2])
-
-
-
-        
         
 
 
-        motor_1_duty, motor_2_duty, motor_3_duty, motor_4_duty = self.update_duty(target_angle_x,target_angle_y,target_angle_z,target_thrust, gyro_x, gyro_y, gyro_z)
+        motor_1_duty, motor_2_duty, motor_3_duty, motor_4_duty = self.PIDValueing.update_duty(target_angle_x,target_angle_y,target_angle_z,target_thrust, gyro_x, gyro_y, gyro_z)
 
         
 

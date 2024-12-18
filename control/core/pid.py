@@ -38,17 +38,17 @@ class PIDValueing(PID):
          pass
     
     
-    def update_duty(self, target_x:float, target_y:float, target_z:float, thrust,current_x:float,current_y:float,current_z:float) -> float: 
+    def update_duty(self, target_pitch:float, target_roll:float, thrust,current_pitch:float,current_roll:float) -> float: 
             '''Update Duty Cycle based on Computed PID Value'''
-            pid_x = self.anglePID(target_x,current_x)
-            pid_y = self.anglePID(target_y,current_y)
-            pid_z = self.anglePID(target_z,current_z)
+            pid_pitch = self.anglePID(target_pitch,current_pitch)
+            pid_roll = self.anglePID(target_roll,current_roll)
 
 
-            motor_1_duty = self.weight*thrust + pid_x + pid_y - pid_z
-            motor_2_duty = self.weight*thrust - pid_x + pid_y + pid_z
-            motor_3_duty = self.weight*thrust - pid_x - pid_y - pid_z
-            motor_4_duty = self.weight*thrust + pid_x - pid_y + pid_z
+
+            motor_1_duty = self.weight*thrust + pid_pitch + pid_roll
+            motor_2_duty = self.weight*thrust - pid_pitch + pid_roll 
+            motor_3_duty = self.weight*thrust - pid_pitch - pid_roll 
+            motor_4_duty = self.weight*thrust + pid_pitch - pid_roll
 
        
             motor_1_duty = max(0, min(100, motor_1_duty))

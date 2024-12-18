@@ -16,7 +16,7 @@ class KalmanFilter:
         current_estimate = self.last_estimate + kalman_gain * (measurement - self.last_estimate)
         
         self.estimated_error = (1 - kalman_gain) * self.estimated_error + abs(self.last_estimate - current_estimate) * self.process_variance
-        
+        urrent_z:float
         self.last_estimate = current_estimate
         
         return current_estimate
@@ -25,6 +25,7 @@ class Sensor:
     def __init__(self, bus_number=1, sensor_address=0x68):
         self.bus = smbus.SMBus(bus_number)
         self.address = sensor_address
+        self.KalmanFilter = KalmanFilter()
         self.init_sensor()
 
     def init_sensor(self):
@@ -56,10 +57,17 @@ class Sensor:
         gyro_y_dps = gyro_y / 131.0
         gyro_z_dps = gyro_z / 131.0
 
+        accel_x = KalmanFilter.update_estimate(accel_x)
+        accel_y = KalmanFilter.update_estimate(accel_y)
+        accel_z = KalmanFilter.update_estimate(accel_z)
+
         # 가속도 값을 중력(g) 단위로 변환 (MPU-6050은 기본적으로 16384 LSB/g)
         accel_x_g = accel_x / 16384.0
         accel_y_g = accel_y / 16384.0
         accel_z_g = accel_z / 16384.0
 
-        return gyro_x_dps, gyro_y_dps, gyro_z_dps, accel_x_g, accel_y_g, accel_z_g
 
+        pitch = math.atan2(accel_x, math.sqrt(accel_y^2 + accel_z^2))
+        roll = math.atan2(accel_y, math.sqrt(accel_x^2 + accel_z^2))
+
+        return pitch, roll

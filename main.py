@@ -8,8 +8,15 @@ if __name__ == "main":
     is_Running = False
 
     while is_Running:
+        command = input("Type 'run' to start. ")
+        if command == 'run':
+            is_Running = True
+        else:
+            pass
 
-        x =
+    while is_Running:
+
+        x = 
         y = 
         z = 
         thrust =

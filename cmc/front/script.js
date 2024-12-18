@@ -25,7 +25,7 @@ function sendMsg(msg){
 }
 
 
-function msgPacker(v_x,v_y,v_z){
+function msgPacker(x,y,z){
     
     return (x,y,z)
 }

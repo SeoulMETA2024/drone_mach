@@ -1,11 +1,13 @@
 from control.core.hovering import Hover
-from cmc.cmc_machine import cmc_main, cmc_run
+from cmc.cmc_machine import RemoteControl
 
 Drone = Hover()
 
 if __name__ == "main":
     
     is_Running = False
+
+    Server = RemoteControl()
 
     while is_Running:
         command = input("Type 'run' to start. ")
@@ -16,16 +18,9 @@ if __name__ == "main":
 
     while is_Running:
 
-        x = 
-        y = 
-        z = 
-        thrust =
+        pitch, roll, thrust = Server.res            
 
-        
-        
-        
-
-        Drone.alleviate(x,y,z,thrust)
+        Drone.alleviate(pitch,roll,thrust)
 
         
         

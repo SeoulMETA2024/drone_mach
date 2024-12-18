@@ -3,25 +3,35 @@ import websocket
 import cmcHandler
 
 
-async def run(websocket):
+class RemoteControl:
+    def __init__(self):
 
-    while True:
-        try:
-            msg = await websocket.recv()
+        self.res = (0,0,0)
+        
+        pass
 
-            await cmcHandler(msg)
+    async def run(self,websocket):
 
-        except:
-            print('disconnected.')
-            break
-    return
+        while True:
+            try:
+                msg = await websocket.recv()
 
-async def main():
-    
-    while True:
-        async with websocket.serve(run, 'localhost',3000) as ws:
-            await asyncio.Future()
+                self.res = await cmcHandler(msg)
 
-asyncio.run(main())
+                
+
+            except:
+                print('disconnected.')
+                break
+        return
+
+    async def main(self):
+        
+        while True:
+            async with websocket.serve(run, 'localhost',3000) as ws:
+                await asyncio.Future()
+
+
+
 
 

@@ -12,9 +12,9 @@ def cmcHandler(msg):
 
     pitch = math.acos(fb_v/255)
     roll = math.acos(fb_v/255)
-    height = h_v / 255
+    thrust = h_v / 255
     
-    return pitch, roll, height
+    return (pitch, roll, thrust)
     
     
 

@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 
 class Motor:
+    '''Control Motor'''
     def __init__(self, pin):
 
         self.pin = pin
@@ -15,8 +16,9 @@ class Motor:
 
         pass
     
-    '''change duty cycle of the motor'''
+
     def motor_cycle(self,cycle):
+        '''change duty cycle of the motor'''
 
         self.pwm.ChangeDutyCycle(cycle)
         print(cycle)

@@ -9,8 +9,9 @@ class PID:
         self.prev_err = 0
         pass
     
-    '''Compute Pid Value'''
+    
     def compute(self, setpoint, current_value):
+        '''Compute Pid Value'''
         err = setpoint - current_value
 
         self.integral += err

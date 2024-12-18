@@ -1,5 +1,4 @@
 import smbus
-import time
 import math
 
 class KalmanFilter:
@@ -10,6 +9,7 @@ class KalmanFilter:
         self.last_estimate = initial_value  # 이전 추정값
 
     def update_estimate(self, measurement):
+        '''apply KalmanFilter'''
         
         kalman_gain = self.estimated_error / (self.estimated_error + self.measurement_variance)
         

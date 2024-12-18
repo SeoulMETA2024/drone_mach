@@ -7,6 +7,7 @@ from sensor import Sensor, KalmanFilter
 BUS_NUM = 1
 SERIAL_NUM = 1
 class Hover(KalmanFilter):
+    '''Control Drone to target posture'''
     def __init__(self,motor_1,motor_2,motor_3,motor_4,Kp,Ki,Kd) -> None:
         self.PIDValueing = PIDValueing()
 
@@ -32,6 +33,7 @@ class Hover(KalmanFilter):
 
 
     def alleviate(self,target_pitch,target_roll,target_thrust) -> None:
+        '''Control Motor to target angle; to target posture.'''
 
         
 
@@ -41,7 +43,7 @@ class Hover(KalmanFilter):
         roll = data[1]        
 
 
-        motor_1_duty, motor_2_duty, motor_3_duty, motor_4_duty = self.PIDValueing.update_duty(target_pitch,target_roll,target_thrust, gyro_x, gyro_y, gyro_z)
+        motor_1_duty, motor_2_duty, motor_3_duty, motor_4_duty = self.PIDValueing.update_duty(target_pitch,target_roll,target_thrust, pitch, roll)
 
         
 
